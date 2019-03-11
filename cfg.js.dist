@@ -1,0 +1,31 @@
+const path = require("path");
+
+const pg = {
+  client: "pg",
+  connection: "",
+  pool: { min: 0, max: 3 }
+  // debug: true
+};
+
+const mysql = {
+  client: "mysql",
+  connection: {
+    host: "localhost",
+    port: "8889",
+    user: "root",
+    password: "root",
+    database: "store",
+    charset: "utf8mb4"
+  }
+};
+
+module.exports = {
+  ...pg,
+  // ...mysql
+  migrations: {
+    directory: path.resolve(__dirname, "migrations")
+  },
+  seeds: {
+    directory: path.resolve(__dirname, "seeds")
+  }
+};
