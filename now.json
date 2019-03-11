@@ -3,8 +3,18 @@
   "name": "wear",
   "builds": [
     {
-      "src": "**/*.js",
+      "src": "/api/**/*.js",
       "use": "@now/node"
     }
-  ]
+  ],
+  "routes": [
+    { "src": "/", "dest": "/api/index.js" },
+    { "src": "/account", "dest": "/api/account" },
+    { "src": "/clothing", "dest": "/api/clothing" },
+    { "src": "/footwear", "dest": "/api/footwear" },
+    { "src": "/settings", "dest": "/api/settings" }
+  ],
+  "github": {
+    "enabled": false
+  }
 }
