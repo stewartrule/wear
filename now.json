@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "wear",
+  "alias": "wear-api",
   "builds": [
     {
       "src": "/api/**/*.js",
@@ -14,7 +15,7 @@
     { "src": "/footwear", "dest": "/api/footwear" },
     { "src": "/settings", "dest": "/api/settings" }
   ],
-  "github": {
-    "enabled": false
+  "env": {
+    "DB_CONNECTION": "@wear-db-connection"
   }
 }
