@@ -34,11 +34,20 @@ module.exports = ({
 
   return {
     data: {
-      user,
+      user: {
+        ...user,
+        male: Boolean(user.male)
+      },
       clothingWishlist,
       footwearWishlist,
-      addresses,
+      addresses: normalize(addresses),
       orders
     }
   };
 };
+
+const normalize = arr =>
+  arr.reduce((collection, row) => {
+    collection[row.id] = row;
+    return collection;
+  }, {});
