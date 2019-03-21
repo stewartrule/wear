@@ -36,7 +36,7 @@ module.exports = ({
       in_stock: inStock,
       review_count: ownReviews.length,
       reviews: normalize(ownReviews.slice(0, 3)),
-      variants: footwearVariants,
+      variants: normalize(footwearVariants),
       avg_rating: avgRating
     };
   };
