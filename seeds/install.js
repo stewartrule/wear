@@ -1,4 +1,6 @@
 const faker = require("faker");
+const path = require("path");
+const fs = require("fs");
 
 const CENTS = 100;
 
@@ -35,7 +37,17 @@ const getAddress = () => ({
 const random = arr =>
   arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
 
+const readDir = dir =>
+  new Promise((resolve, reject) => {
+    fs.readdir(dir, (err, files) => {
+      err ? reject(err) : resolve(files);
+    });
+  });
+
 exports.seed = async (knex, Promise) => {
+  const images = await readDir(path.join(__dirname, "../public/images/"));
+  let imageIdx = 0;
+
   console.log("seed");
 
   const tables = [
@@ -146,6 +158,7 @@ exports.seed = async (knex, Promise) => {
     name => ({
       name,
       slug: slugify(name),
+      image: images[imageIdx++ % images.length],
       created_at: knex.fn.now()
     })
   );
@@ -158,6 +171,7 @@ exports.seed = async (knex, Promise) => {
     name => ({
       name,
       slug: slugify(name),
+      image: images[imageIdx++ % images.length],
       created_at: knex.fn.now()
     })
   );
@@ -187,6 +201,7 @@ exports.seed = async (knex, Promise) => {
         male: faker.random.boolean(),
         slug: slugify(name),
         description: faker.lorem.paragraph(),
+        image: images[imageIdx++ % images.length],
         brand_id: brandId,
         price: price(),
         category_id: categoryId,

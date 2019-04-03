@@ -3,7 +3,7 @@ module.exports = ({
   footwearVariantService,
   footwearReviewService
 }) => async () => {
-  const footwears = await footwearService.limit(40);
+  const footwears = await footwearService.limit(100);
   const footwearIds = footwears.map(({ id }) => id);
 
   const [variants, reviews] = await Promise.all([

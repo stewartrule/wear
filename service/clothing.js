@@ -11,6 +11,7 @@ class Clothing {
         "clothing.name",
         "clothing.description",
         "clothing.price",
+        "clothing.image",
         "clothing.brand_id",
         "brand.name as brand_name",
         "clothing.category_id",

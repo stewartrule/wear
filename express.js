@@ -4,6 +4,8 @@ const port = 3000;
 
 const controllers = require("./controllers");
 
+app.use(express.static("public"));
+
 app.get("/clothing", async (request, response) => {
   const result = await controllers.clothing();
   response.json(result);
