@@ -12,10 +12,10 @@ module.exports = ({
     return {
       data: {
         user: null,
-        clothingWishlist: [],
-        footwearWishlist: [],
-        addresses: [],
-        orders: []
+        clothingWishlist: {},
+        footwearWishlist: {},
+        addresses: {},
+        orders: {}
       }
     };
   }
