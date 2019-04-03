@@ -11,6 +11,7 @@ class Footwear {
         "footwear.name",
         "footwear.description",
         "footwear.price",
+        "footwear.image",
         "footwear.brand_id",
         "brand.name as brand_name",
         "footwear.category_id",

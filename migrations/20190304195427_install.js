@@ -3,6 +3,7 @@ exports.up = async ({ schema }) => {
     t.increments();
     t.string("name", 150);
     t.string("slug", 150);
+    t.string("image", 150);
     t.text("description");
     t.boolean("male").nullable();
 
@@ -103,6 +104,7 @@ exports.up = async ({ schema }) => {
       t.increments();
       t.string("name", 150);
       t.string("slug", 150);
+      t.string("image", 150);
       t.datetime("created_at").notNullable();
       t.datetime("changed_at").nullable();
 
@@ -150,6 +152,7 @@ exports.up = async ({ schema }) => {
       t.increments();
       t.string("name", 150);
       t.string("slug", 150);
+      t.string("image", 150);
       t.datetime("created_at").notNullable();
       t.datetime("changed_at").nullable();
 
