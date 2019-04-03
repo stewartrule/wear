@@ -168,6 +168,7 @@ exports.seed = async (knex, Promise) => {
     "color",
     times(15, i => ({
       h: i * (360 / 15),
+      l: 70,
       created_at: knex.fn.now()
     })),
     identity
@@ -206,9 +207,10 @@ exports.seed = async (knex, Promise) => {
 
   console.log("inserted clothing");
 
-  const clothingVariantInserts = clothingIds.flatMap(clothingId =>
-    clothingSizeIds.flatMap(clothingSizeId =>
-      sample(colorIds, 3).map(colorId =>
+  const clothingVariantInserts = clothingIds.flatMap(clothingId => {
+    const colorSamples = sample(colorIds, 3);
+    return clothingSizeIds.flatMap(clothingSizeId =>
+      colorSamples.map(colorId =>
         knex("clothing_variant").insert(
           {
             clothing_id: clothingId,
@@ -219,8 +221,8 @@ exports.seed = async (knex, Promise) => {
           "id"
         )
       )
-    )
-  );
+    );
+  });
   const clothingVariantReturns = await Promise.all(clothingVariantInserts);
   const clothingVariantIds = clothingVariantReturns.map(res => res[0]);
 
@@ -237,9 +239,10 @@ exports.seed = async (knex, Promise) => {
 
   console.log("inserted footwear");
 
-  const footwearVariantInserts = footwearIds.flatMap(footwearId =>
-    footwearSizeIds.flatMap(footwearSizeId =>
-      sample(colorIds, 3).map(colorId =>
+  const footwearVariantInserts = footwearIds.flatMap(footwearId => {
+    const colorSamples = sample(colorIds, 3);
+    return footwearSizeIds.flatMap(footwearSizeId =>
+      colorSamples.map(colorId =>
         knex("footwear_variant").insert(
           {
             footwear_id: footwearId,
@@ -250,8 +253,8 @@ exports.seed = async (knex, Promise) => {
           "id"
         )
       )
-    )
-  );
+    );
+  });
   const footwearVariantReturns = await Promise.all(footwearVariantInserts);
   const footwearVariantIds = footwearVariantReturns.map(res => res[0]);
 
