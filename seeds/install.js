@@ -1,4 +1,7 @@
 const faker = require("faker");
+const colorable = require("colorable-dominant");
+const splashy = require("splashy");
+const hexHsl = require("hex-to-hsl");
 const path = require("path");
 const fs = require("fs");
 
@@ -44,8 +47,14 @@ const readDir = dir =>
     });
   });
 
+const readFile = file =>
+  new Promise((resolve, reject) => {
+    fs.readFile(file, (err, buffer) => {
+      err ? reject(err) : resolve(buffer);
+    });
+  });
+
 exports.seed = async (knex, Promise) => {
-  const images = await readDir(path.join(__dirname, "../public/images/"));
   let imageIdx = 0;
 
   console.log("seed");
@@ -54,6 +63,7 @@ exports.seed = async (knex, Promise) => {
     "address",
     "brand",
     "color",
+    "image",
     "favorite_clothing",
     "favorite_footwear",
     "order",
@@ -71,6 +81,40 @@ exports.seed = async (knex, Promise) => {
     "wishlist"
   ];
   await Promise.all(tables.map(table => knex(table).del()));
+
+  const imageDir = path.join(__dirname, "../public/images/");
+  const imageSources = await readDir(imageDir);
+  const imagePaths = imageSources.map(src => ({
+    src,
+    path: `${imageDir}${src}`
+  }));
+
+  const imageData = await Promise.all(
+    imagePaths.map(async ({ src, path }) => {
+      const buffer = await readFile(path);
+      const palette = await splashy(buffer);
+      const dominant = colorable(palette);
+
+      return {
+        src,
+        path,
+        ...dominant
+      };
+    })
+  );
+
+  const imageIds = await insert(knex, "image", imageData, ({ src, color }) => {
+    const [h, s, l] = hexHsl(color);
+
+    return {
+      src,
+      h,
+      s,
+      l,
+      created_at: knex.fn.now()
+    };
+  });
+  console.log("inserted images");
 
   const clothingSizes = ["xs", "s", "m", "l", "xl", "2xl"];
   const footwearSizes = times(3, i => 35 + i * 0.5);
@@ -158,7 +202,7 @@ exports.seed = async (knex, Promise) => {
     name => ({
       name,
       slug: slugify(name),
-      image: images[imageIdx++ % images.length],
+      image_id: imageIds[imageIdx++ % imageIds.length],
       created_at: knex.fn.now()
     })
   );
@@ -171,7 +215,7 @@ exports.seed = async (knex, Promise) => {
     name => ({
       name,
       slug: slugify(name),
-      image: images[imageIdx++ % images.length],
+      image_id: imageIds[imageIdx++ % imageIds.length],
       created_at: knex.fn.now()
     })
   );
@@ -201,7 +245,7 @@ exports.seed = async (knex, Promise) => {
         male: faker.random.boolean(),
         slug: slugify(name),
         description: faker.lorem.paragraph(),
-        image: images[imageIdx++ % images.length],
+        image_id: imageIds[imageIdx++ % imageIds.length],
         brand_id: brandId,
         price: price(),
         category_id: categoryId,

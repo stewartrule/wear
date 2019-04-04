@@ -14,7 +14,10 @@
     "pg": "^7.8.2"
   },
   "devDependencies": {
+    "colorable-dominant": "^1.1.1",
     "faker": "^4.1.0",
-    "nodemon": "^1.18.10"
+    "hex-to-hsl": "^1.0.2",
+    "nodemon": "^1.18.10",
+    "splashy": "^4.0.1"
   }
 }
