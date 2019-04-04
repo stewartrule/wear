@@ -11,8 +11,11 @@ class Clothing {
         "clothing.name",
         "clothing.description",
         "clothing.price",
-        "clothing.image",
         "clothing.brand_id",
+        "image.src as image_src",
+        "image.h as image_h",
+        "image.s as image_s",
+        "image.l as image_l",
         "brand.name as brand_name",
         "clothing.category_id",
         "clothing_category.name as category_name"
@@ -22,6 +25,7 @@ class Clothing {
         "clothing_category.id",
         "clothing.category_id"
       )
+      .innerJoin("image", "image.id", "clothing.image_id")
       .innerJoin("brand", "brand.id", "clothing.brand_id")
       .orderBy("clothing.id");
   }
