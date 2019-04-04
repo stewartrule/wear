@@ -32,7 +32,21 @@ module.exports = ({
     const avgRating = ownReviews.length ? sumRating / ownReviews.length : 0;
 
     return {
-      ...clothing,
+      id: clothing.id,
+      name: clothing.name,
+      description: clothing.description,
+      price: clothing.price,
+      brand_id: clothing.brand_id,
+      brand_name: clothing.brand_name,
+      category_id: clothing.category_id,
+      category_name: clothing.category_name,
+      image: {
+        id: clothing.image_id,
+        src: clothing.image_src,
+        h: clothing.image_h,
+        s: clothing.image_s,
+        l: clothing.image_l
+      },
       in_stock: inStock,
       review_count: ownReviews.length,
       reviews: normalize(ownReviews.slice(0, 1)),

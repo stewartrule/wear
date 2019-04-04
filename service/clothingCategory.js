@@ -10,6 +10,7 @@ class ClothingCategory {
       .select(
         "clothing_category.id",
         "clothing_category.name",
+        "image.id as image_id",
         "image.src as image_src",
         "image.h as image_h",
         "image.s as image_s",

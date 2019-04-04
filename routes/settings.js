@@ -28,10 +28,36 @@ module.exports = ({
   return {
     data: {
       clothingBrands: normalize(clothingBrands),
-      clothingCategories: normalize(clothingCategories),
+      clothingCategories: normalize(
+        clothingCategories.map(category => ({
+          product_count: category.product_count,
+          id: category.id,
+          name: category.name,
+          image: {
+            id: category.image_id,
+            src: category.image_src,
+            h: category.image_h,
+            s: category.image_s,
+            l: category.image_l
+          }
+        }))
+      ),
       clothingSizes: normalize(clothingSizes),
       footwearBrands: normalize(footwearBrands),
-      footwearCategories: normalize(footwearCategories),
+      footwearCategories: normalize(
+        footwearCategories.map(category => ({
+          product_count: category.product_count,
+          id: category.id,
+          name: category.name,
+          image: {
+            id: category.image_id,
+            src: category.image_src,
+            h: category.image_h,
+            s: category.image_s,
+            l: category.image_l
+          }
+        }))
+      ),
       footwearSizes: normalize(footwearSizes),
       colors: normalize(colors)
     }
