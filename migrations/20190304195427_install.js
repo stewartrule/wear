@@ -3,7 +3,10 @@ exports.up = async ({ schema }) => {
     t.increments();
     t.string("name", 150);
     t.string("slug", 150);
-    t.string("image", 150);
+    t.integer("image_id")
+      .unsigned()
+      .notNullable();
+
     t.text("description");
     t.boolean("male").nullable();
 
@@ -20,6 +23,7 @@ exports.up = async ({ schema }) => {
     t.datetime("created_at").notNullable();
     t.datetime("changed_at").nullable();
 
+    t.index("image_id");
     t.index("category_id");
     t.index("brand_id");
     t.unique("slug");
@@ -83,6 +87,16 @@ exports.up = async ({ schema }) => {
       t.datetime("changed_at").nullable();
     })
 
+    .createTable("image", t => {
+      t.increments();
+      t.string("src", 150);
+
+      withHSL(t);
+
+      t.datetime("created_at").notNullable();
+      t.datetime("changed_at").nullable();
+    })
+
     .createTable("brand", t => {
       t.increments();
       t.string("name", 150);
@@ -104,10 +118,13 @@ exports.up = async ({ schema }) => {
       t.increments();
       t.string("name", 150);
       t.string("slug", 150);
-      t.string("image", 150);
+      t.integer("image_id")
+        .unsigned()
+        .notNullable();
       t.datetime("created_at").notNullable();
       t.datetime("changed_at").nullable();
 
+      t.index("image_id");
       t.unique("slug");
     })
 
@@ -152,10 +169,14 @@ exports.up = async ({ schema }) => {
       t.increments();
       t.string("name", 150);
       t.string("slug", 150);
-      t.string("image", 150);
+      t.integer("image_id")
+        .unsigned()
+        .notNullable();
+
       t.datetime("created_at").notNullable();
       t.datetime("changed_at").nullable();
 
+      t.index("image_id");
       t.unique("slug");
     })
 
@@ -353,6 +374,7 @@ exports.down = async ({ schema }) => {
     .dropTable("color")
     .dropTable("favorite_clothing")
     .dropTable("favorite_footwear")
+    .dropTable("image")
     .dropTable("order")
     .dropTable("product_order")
     .dropTable("footwear_size")
