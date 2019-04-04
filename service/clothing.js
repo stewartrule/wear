@@ -12,11 +12,12 @@ class Clothing {
         "clothing.description",
         "clothing.price",
         "clothing.brand_id",
+        "brand.name as brand_name",
+        "image.id as image_id",
         "image.src as image_src",
         "image.h as image_h",
         "image.s as image_s",
         "image.l as image_l",
-        "brand.name as brand_name",
         "clothing.category_id",
         "clothing_category.name as category_name"
       )

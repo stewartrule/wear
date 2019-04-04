@@ -11,11 +11,12 @@ class Footwear {
         "footwear.name",
         "footwear.description",
         "footwear.price",
-        "footwear.brand_id",
+        "image.id as image_id",
         "image.src as image_src",
         "image.h as image_h",
         "image.s as image_s",
         "image.l as image_l",
+        "footwear.brand_id",
         "brand.name as brand_name",
         "footwear.category_id",
         "footwear_category.name as category_name"
