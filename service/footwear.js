@@ -11,8 +11,11 @@ class Footwear {
         "footwear.name",
         "footwear.description",
         "footwear.price",
-        "footwear.image",
         "footwear.brand_id",
+        "image.src as image_src",
+        "image.h as image_h",
+        "image.s as image_s",
+        "image.l as image_l",
         "brand.name as brand_name",
         "footwear.category_id",
         "footwear_category.name as category_name"
@@ -22,6 +25,7 @@ class Footwear {
         "footwear_category.id",
         "footwear.category_id"
       )
+      .innerJoin("image", "image.id", "footwear.image_id")
       .innerJoin("brand", "brand.id", "footwear.brand_id");
   }
 
