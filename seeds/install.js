@@ -224,9 +224,10 @@ exports.seed = async (knex, Promise) => {
   const colorIds = await insert(
     knex,
     "color",
-    times(15, i => ({
-      h: i * (360 / 15),
+    times(6, i => ({
+      h: i * (360 / 6),
       l: 70,
+      s: 25,
       created_at: knex.fn.now()
     })),
     identity
@@ -334,6 +335,22 @@ exports.seed = async (knex, Promise) => {
   });
   await Promise.all(clothingReviewInserts);
   console.log("inserted clothing reviews");
+
+  /**
+   * Footwear Reviews
+   */
+  const footwearReviewInserts = footwearIds.flatMap(footwearId => {
+    return insert(knex, "footwear_review", userIds, userId => ({
+      footwear_id: footwearId,
+      user_id: userId,
+      rating: 1 + Math.floor(Math.random() * 5),
+      title: faker.company.catchPhraseAdjective(),
+      description: faker.lorem.paragraph(),
+      created_at: knex.fn.now()
+    }));
+  });
+  await Promise.all(footwearReviewInserts);
+  console.log("inserted footwear reviews");
 
   const wishlistInserts1 = userIds.flatMap(userId => {
     return insert(
